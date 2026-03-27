@@ -1,7 +1,7 @@
 PrecoVeiculo = float(input("Digite o preço do veículo: "))
 
 imposto = PrecoVeiculo * 0.45
-lucro = PrecoVeiculo * 0.28
+lucro = imposto * 0.28
 precoFinal = PrecoVeiculo + imposto + lucro
 
 print("O preço do veiculo é: R$ ", PrecoVeiculo)
