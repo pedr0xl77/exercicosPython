@@ -66,10 +66,10 @@ def menu():
                 print("=== Cadastro de Produto ===")
 
                 codigo = validacao_universal("Digite o código do produto: ", int) #chama a função de validação universal para validar o código do produto
-                    
+
                 nome = validacao_universal("Digite o nome do produto: ", str) #chama a função de validação universal para validar o nome do produto
                 
-                quantidade = validacao_universal("Digite a quantidade do produto: ", int) #chama a função de validação universal para validar a quantidade do produto
+                quantidade = 0 #crindo o obejto com a quantide padrão de 0
 
                 preco_unitario = validacao_universal("Digite o preço unitário do produto: ", float) #chama a função de validação universal para validar o preço unitário do produto
                 
@@ -77,6 +77,14 @@ def menu():
                 produto = Produto(codigo, nome, quantidade, preco_unitario)
                 produtos.append(produto)
                 print("Produto cadastrado com sucesso!")
+
+            case "2":
+                print("Listar Produtos")
+                for i in range (len(produtos)):
+                    print(f"\nO indice do produto é {i}")
+                    print(produtos[i].exibir_informacoes)
+
+
 
             case "4":
                 print("Saindo do programa...")
