@@ -57,32 +57,39 @@ def menu():
         print("3. Comprar produtos")
         print("4. Sair")
 
-        opcao = str(input("Escolha uma opção: "))
+        opcao = input("Escolha uma opção: ")
 
         # vereficador de opção de tela
         match opcao:
 
             case "1":
-                print("=== Cadastro de Produto ===")
-
-                codigo = validacao_universal("Digite o código do produto: ", int) #chama a função de validação universal para validar o código do produto
-
-                nome = validacao_universal("Digite o nome do produto: ", str) #chama a função de validação universal para validar o nome do produto
-                
-                quantidade = 0 #crindo o obejto com a quantide padrão de 0
-
-                preco_unitario = validacao_universal("Digite o preço unitário do produto: ", float) #chama a função de validação universal para validar o preço unitário do produto
-                
-
-                produto = Produto(codigo, nome, quantidade, preco_unitario)
-                produtos.append(produto)
-                print("Produto cadastrado com sucesso!")
+                while True:
+                    print("=== Cadastro de Produto ===")
+                    
+                    codigo = validacao_universal("Digite o código do produto: ", int) #chama a função de validação universal para validar o código do produto
+                    
+                    nome = validacao_universal("Digite o nome do produto: ", str) #chama a função de validação universal para validar o nome do produto
+                                    
+                    quantidade = 0 #crindo o obejto com a quantide padrão de 0
+                    
+                    preco_unitario = validacao_universal("Digite o preço unitário do produto: ", float) #chama a função de validação universal para validar o preço unitário do produto
+                                    
+                    
+                    produto = Produto(codigo, nome, quantidade, preco_unitario)
+                    produtos.append(produto)
+                    print("Produto cadastrado com sucesso!")
+                    alternativa = validacao_universal("Deseja continuar? S|N",str).upper()
+                    if alternativa == "S":
+                        continue
+                    else:
+                        break
+                        
 
             case "2":
                 print("Listar Produtos")
                 for i in range (len(produtos)):
                     print(f"\nO indice do produto é {i}")
-                    print(produtos[i].exibir_informacoes)
+                    produtos[i].exibir_informacoes()
 
 
 
