@@ -1,17 +1,13 @@
 ## criando a Produto
 
 class Produto:
-    def __init__(self,codigo,nome,quantidade,preco_unitario):
-        self.codigo = codigo
+    def __init__(self,nome,preco_unitario):
         self.nome = nome
-        self.quantidade = quantidade
         self.preco_unitario = preco_unitario
 
     def exibir_informacoes(self):
-        print(f"Código: {self.codigo}")
         print(f"Nome: {self.nome}")
-        print(f"Quantidade: {self.quantidade}")
-        print(f"Preço Unitário: R${self.preco_unitario:.2f}")
+        print(f"Preço Unitário: R${self.preco_unitario:.2f}".replace('.', ','))
 
 #Função de validação universal para entrada de dados
 def validacao_universal(mensagem, tipo_esperado, positivo_obrigatorio=True):
@@ -36,7 +32,7 @@ def validacao_universal(mensagem, tipo_esperado, positivo_obrigatorio=True):
             #validação para números
             numero = tipo_esperado(entrada)
 
-            if positivo_obrigatorio and numero <= 0:
+            if positivo_obrigatorio == True and numero <= 0:
                 raise ValueError("O número deve ser maior que zero.")
 
             return numero
@@ -47,6 +43,13 @@ def validacao_universal(mensagem, tipo_esperado, positivo_obrigatorio=True):
                 print("Erro: Deve ser um numero inteiro maior que zero.")
             else:
                 print("Erro: Deve ser um numero decimal maior que zero.")
+
+
+
+
+
+
+
 # Função para exibir o menu e interagir com o usuário
 def menu():
     produtos = []  # Lista para armazenar os produtos cadastrados
@@ -66,16 +69,12 @@ def menu():
                 while True:
                     print("=== Cadastro de Produto ===")
                     
-                    codigo = validacao_universal("Digite o código do produto: ", int) #chama a função de validação universal para validar o código do produto
-                    
                     nome = validacao_universal("Digite o nome do produto: ", str) #chama a função de validação universal para validar o nome do produto
                                     
-                    quantidade = 0 #crindo o obejto com a quantide padrão de 0
-                    
                     preco_unitario = validacao_universal("Digite o preço unitário do produto: ", float) #chama a função de validação universal para validar o preço unitário do produto
                                     
                     
-                    produto = Produto(codigo, nome, quantidade, preco_unitario)
+                    produto = Produto(nome, preco_unitario)
                     produtos.append(produto)
                     print("Produto cadastrado com sucesso!")
                     alternativa = validacao_universal("Deseja continuar? S|N",str).upper()
@@ -91,6 +90,24 @@ def menu():
                     print(f"\nO indice do produto é {i}")
                     produtos[i].exibir_informacoes()
 
+            case "3":
+                print("Comprar Produtos")
+                if not produtos:
+                    print("Nenhum produto cadastrado.")
+                    continue
+
+                indice = validacao_universal("Digite o índice do produto que deseja comprar: ", int, positivo_obrigatorio=False)
+                if indice < 0 or indice >= len(produtos):
+                    print("Índice inválido.")
+                    continue
+                
+                quantidade = validacao_universal("Digite a quantidade de produtos que deseja comprar: ", int)
+                total = 0
+
+                total = produtos[indice].preco_unitario * quantidade
+                print(f"Total da compra: R${total:.2f}".replace('.', ','))
+                print(f"Voce comprou {quantidade} unidades do produto {produtos[indice].nome}.")
+                print("Compra realizada com sucesso!")
 
 
             case "4":
